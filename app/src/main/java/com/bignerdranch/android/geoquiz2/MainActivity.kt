@@ -26,6 +26,9 @@ class MainActivity : AppCompatActivity() {
         if (result.resultCode == Activity.RESULT_OK) {
             val isAnswerShown = result.data?.getBooleanExtra(EXTRA_ANSWER_SHOWN, false) ?: false
             quizViewModel.setCheaterForCurrentQuestion(isAnswerShown)
+            if (isAnswerShown) {
+                Toast.makeText(this, R.string.judgment_toast, Toast.LENGTH_SHORT).show()
+            }
         }
     }
 

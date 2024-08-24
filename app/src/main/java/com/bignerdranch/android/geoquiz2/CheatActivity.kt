@@ -19,7 +19,6 @@ private const val SAVED_STATE_ANSWER_SHOWN = "saved_state_answer_shown"
 class CheatActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityCheatBinding
-
     private var answerIsTrue = false
     private var isAnswerShown = false
 
@@ -35,18 +34,25 @@ class CheatActivity : AppCompatActivity() {
         answerIsTrue = intent.getBooleanExtra(EXTRA_ANSWER_IS_TRUE, false)
 
         if (isAnswerShown) {
-            val answerText = if (answerIsTrue) R.string.true_button else R.string.false_button
-            binding.answerTextView.setText(answerText)
+            displayAnswer()
         }
 
         binding.showAnswerButton.setOnClickListener {
             if (!isAnswerShown) {
-                val answerText = if (answerIsTrue) R.string.true_button else R.string.false_button
-                binding.answerTextView.setText(answerText)
+                displayAnswer()
                 setAnswerShownResult(true)
                 isAnswerShown = true
             }
         }
+
+        binding.backButton.setOnClickListener {
+            finish()
+        }
+    }
+
+    private fun displayAnswer() {
+        val answerText = if (answerIsTrue) R.string.true_button else R.string.false_button
+        binding.answerTextView.setText(answerText)
     }
 
     override fun onSaveInstanceState(outState: Bundle) {

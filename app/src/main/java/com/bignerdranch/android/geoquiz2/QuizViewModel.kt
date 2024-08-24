@@ -35,6 +35,7 @@ class QuizViewModel(private val savedStateHandle: SavedStateHandle) : ViewModel(
 
     fun moveToNext() {
         currentIndex = (currentIndex + 1) % questionBank.size
+        resetCheatingStatus()
     }
 
     fun moveToPrevious() {
@@ -43,6 +44,12 @@ class QuizViewModel(private val savedStateHandle: SavedStateHandle) : ViewModel(
         } else {
             currentIndex - 1
         }
+        resetCheatingStatus()
+    }
+
+    private fun resetCheatingStatus() {
+        isCheaterMap[currentIndex] = false
+        savedStateHandle.set(IS_CHEATER_MAP_KEY, isCheaterMap)
     }
 
     fun getQuestionBankSize() = questionBank.size
